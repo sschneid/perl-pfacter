@@ -418,6 +418,7 @@ sub pfact {
     }
 
     chomp( my $pfact = "Pfacter::$module"->pfact( $self ) );
+    $pfact =~ s/\s+/ /g;
     return( $pfact );
 }
 
