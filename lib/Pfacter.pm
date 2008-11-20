@@ -41,6 +41,7 @@ sub modulelist {
         /Linux/ && do {
             push @modules, qw(
 
+                lsbcodename
                 lsbdescription
                 lsbid
                 lsbrelease
