@@ -194,6 +194,7 @@ sub init {
         'password=s'   => \$self->{'var'}->{'password'},
         'server=s'     => \$self->{'var'}->{'server'},
         'ssl'          => \$self->{'var'}->{'ssl'},
+        'userbase=s'   => \$self->{'var'}->{'userbase'},
         'username=s'   => \$self->{'var'}->{'username'},
         'version'      => \$self->{'var'}->{'version'},
         'write'        => \$self->{'var'}->{'write'},
@@ -324,14 +325,19 @@ sub init {
             exit( 1 );
         }
 
+        # Allow a separate base for auth user (from cmd line or configfile)
+        $self->{'var'}->{'userbase'} = $self->{'var'}->{'config'}->{'userbase'}
+            if $self->{'var'}->{'config'}->{'userbase'};
+        $self->{'var'}->{'userbase'} ||= $self->{'var'}->{'base'};
+
         # Attempt to bind
         $self->debug(
             "Attempting to bind as uid=$self->{'var'}->{'username'},"
-                . "ou=People,$self->{'var'}->{'base'}"
+                . "ou=People,$self->{'var'}->{'userbase'}"
         );
 
         $self->{'LDAP'}->{'error'} = $self->{'LDAP'}->bind(
-            "uid=$self->{'var'}->{'username'},ou=People,$self->{'var'}->{'base'}",
+            "uid=$self->{'var'}->{'username'},ou=People,$self->{'var'}->{'userbase'}",
             password => $self->{'var'}->{'password'}
         );
 
