@@ -60,6 +60,14 @@ sub modulelist {
         );
     }
 
+    if ( -e '/usr/bin/puppet' ) {
+        push @modules, qw(
+
+            puppetversion
+
+        );
+    }
+
     return sort @modules;
 }
 
