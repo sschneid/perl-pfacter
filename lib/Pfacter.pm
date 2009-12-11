@@ -26,6 +26,7 @@ sub modulelist {
         macaddress
         memory
         memorytotal
+        netmask
         operatingsystem
         processor
         processorcount
